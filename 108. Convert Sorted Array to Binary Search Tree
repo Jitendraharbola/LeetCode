@@ -1,0 +1,42 @@
+Problem:- Given an integer array nums where the elements are sorted in ascending order, convert it to a 
+height-balanced
+ binary search tree. 
+
+Example 1:
+
+
+Input: nums = [-10,-3,0,5,9]
+Output: [0,-3,9,-10,null,5]
+Explanation: [0,-10,5,null,-3,null,9] is also accepted:
+
+Solution:- /**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    public TreeNode sortedArrayToBST(int[] nums) {
+        if(nums.length==0) return null;
+
+        return getBST(nums, 0 , nums.length-1);
+    }
+
+    public TreeNode getBST(int []nums, int strtIdx, int endIdx){
+        if(strtIdx>endIdx) return null;
+        int midIdx = (strtIdx+endIdx)/2;
+        TreeNode bst = new TreeNode(nums[midIdx]);
+        bst.left = getBST(nums, strtIdx, midIdx-1);
+        bst.right = getBST(nums, midIdx+1, endIdx);
+        return bst;
+    }
+}
